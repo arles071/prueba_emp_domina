@@ -17,10 +17,6 @@ class ExerciseFiveController extends Controller
     }
 
 
-    public function store(Request $request){
-        
-    }
-
     private function maximum_perimeter($side, $module) { //2,3
        
         if($side == 0 && $module == 0){
@@ -40,11 +36,11 @@ class ExerciseFiveController extends Controller
         if ($module == $area) {
             $perimeter = 4 * $side;
         } else if ($module < $side) {
-            $perimeter = 2 * $module + 2 * ($side - $module);
+            $perimeter = 2 * $module + 4 * ($side - $module);
         } else if ($module < 2 * $side) {
-            $perimeter = 2 * $side + 2 * ($module - $side);
+            $perimeter = 2 * $side + 4 * ($module - $side);
         } else {
-            $perimeter = 4 * $side;
+            $perimeter = 4 * $side + 4;
         }
       
         return $perimeter;

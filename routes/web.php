@@ -42,4 +42,3 @@ Route::post('ejercicio4', [ExerciseFourController::class, 'store']);
 
 //ejercicio 4
 Route::get('ejercicio5', [ExerciseFiveController::class, 'index']);
-Route::post('ejercicio5', [ExerciseFiveController::class, 'store']);
