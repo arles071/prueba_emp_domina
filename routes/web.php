@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-//Route::get('', [PruebaController::class, 'index']);
 Route::get('', function(){
     return redirect()->to('ejercicio1');
 });
