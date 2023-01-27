@@ -11,10 +11,10 @@ class PruebaController extends Controller
 
         //echo "01:45 = ".$this->calculateAngle("01:45"); echo "<br>";
 
-        $arreglo = [1,3,5,8,10]; //3+3+3+5+1 = 15
+        //$arreglo = [1,3,5,8,10]; //3+3+3+5+1 = 15
         //echo $this->calculoPuntuacion($arreglo);
 
-        $arreglo2 = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+        //$arreglo2 = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
         //echo "-90 - 120 = ".$this->sumElementArray($arreglo2, -90, 120); echo "<br>";
         //echo "120 - 90 = ".$this->sumElementArray($arreglo2, 120, 90); echo "<br>";
         //echo "15 - 120 = ".$this->sumElementArray($arreglo2, 15, 120); echo "<br>";
@@ -23,21 +23,24 @@ class PruebaController extends Controller
 
         //echo $this->numero_correspondiente(8, 8, 6, 1); echo "<br>";// 18
         //echo $this->numero_correspondienteparam(8,10,2,4); echo "<br>";// 30
-        echo $this->numero_correspondienteparam2(4,6,1,4); echo "<br>";// 16
-        echo $this->numero_correspondienteparam2(5,4,1,4); echo "<br>";
-        echo $this->numero_correspondienteparam2(8, 8, 7, 7); echo "<br>";// 18
+        //echo $this->numero_correspondienteparam2(4,6,1,4); echo "<br>";// 16
+        //echo $this->numero_correspondienteparam2(5,4,1,4); echo "<br>";
+        //echo $this->numero_correspondienteparam2(8, 8, 7, 7); echo "<br>";// 18
     
         //echo $this->numero_correspondiente(3, 4, 4, 3); // Error: La posición de la fila o columna es mayor al tamaño del arreglo
 
 
-        echo "<br>";
-        echo "******************************************";echo "<br>";
+        //echo "<br>";
+        //echo "******************************************";echo "<br>";
         echo $this->maximo_perimetro(1, 0); echo "<br>";// 0
         echo $this->maximo_perimetro(1, 1); echo "<br>";// 4
         echo $this->maximo_perimetro(2, 3); echo "<br>";// 8
+        echo $this->maximo_perimetro(3, 8); echo "<br>";// 16
+        echo $this->maximo_perimetro(3, 4); echo "<br>";// 16
+        echo $this->maximo_perimetro(0, 0); echo "<br>";// Error
         
-        $respuesta = 0;
-        return view('prueba')->with('respuesta', $respuesta);
+        $reply = 0;
+        return view('prueba')->with('reply', $reply);
     }
 
     private function calculoPuntuacion(Array $arreglo){
@@ -187,21 +190,36 @@ class PruebaController extends Controller
      * 16 de largo; el de la derecha representa otra posibilidad, con perímetro 12
      */
     private function maximo_perimetro($lado, $modulos) { //2,3
-        if ($modulos == 0) {
+       
+        if($lado == 0 && $modulos == 0){
+            return 'Error';
+        } else if ($modulos == 0) {
             return 0;
         }
-        $area = $lado * $lado; //2*2 = 4
+
+        $area = $lado * $lado;
+
+        if($modulos > $area){
+            return 'No puede haber un modulo '.$modulos. ' en un area de '.$area;
+        }
+
         $perimetro = 0;
 
-        if ($modulos == $area) { //no
+        if ($modulos == $area) {
             $perimetro = 4 * $lado;
-        } else if ($modulos < $lado) { //si
-            $perimetro = 2 * $modulos + 2 * ($lado - $modulos); 
-        } else if ($modulos < 2 * $lado) { // 3 < 4
-            $perimetro = 2 * $lado + 2 * ($modulos - $lado); //2 * 2 + 2 * 3 - 2 => 4 + 2 * 1 = 6
+        } else if ($modulos < $lado) {
+            $perimetro = 2 * $modulos + 2 * ($lado - $modulos);
+        } else if ($modulos < 2 * $lado) {
+            $perimetro = 2 * $lado + 2 * ($modulos - $lado);
         } else {
             $perimetro = 4 * $lado;
         }
+
+
+
+        
+
+      
         return $perimetro;
     }
     

@@ -9,9 +9,9 @@ class ExerciseUnaController extends Controller
 {
     public function index(){
 
-        $data['respuesta1'] = $this->calculoPuntuacion([1,2,3,4,5]);
-        $data['respuesta2'] = $this->calculoPuntuacion([15,25,35]);
-        $data['respuesta3'] = $this->calculoPuntuacion([8,8]);
+        $data['reply1'] = $this->calculatePoints([1,2,3,4,5]);
+        $data['reply2'] = $this->calculatePoints([15,25,35]);
+        $data['reply3'] = $this->calculatePoints([8,8]);
 
      
         return view('exercise_una', $data);
@@ -26,14 +26,20 @@ class ExerciseUnaController extends Controller
         $newArreglo = explode(',', $request->input('arreglo'));
 
         $dataStore['param'] = json_encode($newArreglo);
-        $dataStore['result'] = $this->calculoPuntuacion($newArreglo);
+        $dataStore['result'] = $this->calculatePoints($newArreglo);
 
         Session::flash("dataStore",$dataStore);
         return redirect()->to('ejercicio1');
     }
 
 
-    private function calculoPuntuacion(Array $arreglo){
+    /**
+     * Devuelve la suma de puntos de un arreglo.
+     * Agregue 1 punto por cada número par en el arreglo.
+     * Suma 3 puntos por cada número impar en el arreglo.
+     * Agregue 5 puntos por cada vez que encuentre un 8 en el arreglo.
+     */
+    private function calculatePoints(Array $arreglo){
         $sumaCalculo = 0;
         foreach($arreglo as $num){
             if($num == 8)

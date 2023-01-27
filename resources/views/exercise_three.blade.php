@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ejercicio dos</title>
-</head>
-<body>
+@extends('layouts.template')
+@section('title', 'Ejercicio tres')
+
+@section('content')
     <h1>Ejercicio tres</h1>
     <p>
         Crear una función que toma como parámetro un string de hora y minutos “hh:mm”, y luego 
@@ -21,25 +16,28 @@
         Las siguientes horas y minutos deben de regresar los siguientes valores de ángulos 
         menores:
         <ul>
-            <li>"01:45" = 120 <b>Resultado</b> {{$resultado1}}</li>
-            <li>"10:30" = 120 <b>Resultado</b> {{$resultado2}}</li>
-            <li>"02:25" = 90 <b>Resultado</b> {{$resultado3}}</li>
-            <li>"00:00" = 0 <b>Resultado</b> {{$resultado4}}</li>
-            <li>"12:30" = 180 <b>Resultado</b> {{$resultado5}}</li>
-            <li>"12:05" = 30 <b>Resultado</b> {{$resultado6}}</li>
-            <li>"12:12" = 72 <b>Resultado</b> {{$resultado7}}</li>
-            <li>"12:27" = 162 <b>Resultado</b> {{$resultado8}}</li>
+            <li>"01:45" = 120 <b>resultado</b> {{$result1}}</li>
+            <li>"10:30" = 120 <b>resultado</b> {{$result2}}</li>
+            <li>"02:25" = 90 <b>resultado</b> {{$result3}}</li>
+            <li>"00:00" = 0 <b>resultado</b> {{$result4}}</li>
+            <li>"12:30" = 180 <b>resultado</b> {{$result5}}</li>
+            <li>"12:05" = 30 <b>resultado</b> {{$result6}}</li>
+            <li>"12:12" = 72 <b>resultado</b> {{$result7}}</li>
+            <li>"12:27" = 162 <b>resultado</b> {{$result8}}</li>
         </ul>
     </p>
     <p>
-        Para obtener el angulo de las manesillas del reloj por favor agragar en el campo la hora y minutos con el siguiente formato "hh:mm"
+        Para obtener el ángulo de las manecillas del reloj por favor agregar en el campo la hora y minutos con el siguiente formato "hh:mm"
     </p>
 
     <form action="/ejercicio3" method="post">
         @csrf
         <p>
             <label for="time">Hora y minutos (hh:mm):</label><br>
-            <input type="string" name="time" id="time"><br>
+            <input type="string" name="time" id="time" pattern="^[0-2][0-3]:[0-5][0-9]$"><br>
+            @if($errors->has('time'))
+                <div class="error">{{ $errors->first('time') }}</div>
+            @endif
         </p>
         <p>
             <input type="submit" value="Obtener resultado">
@@ -52,10 +50,8 @@
         <p>Datos: 
             <br>{!! session('dataStore')['param'] !!}
         </p>
-        <p>Respuesta = {{ session('dataStore')['result'] }}</p>
+        <p>resultado = {{ session('dataStore')['result'] }}</p>
     </div>
     @endif
 
-    
-</body>
-</html>
+@stop

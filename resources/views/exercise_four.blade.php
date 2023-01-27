@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ejercicio cuatro</title>
-</head>
-<body>
+@extends('layouts.template')
+@section('title', 'Ejercicio cuatro')
+
+@section('content')
+
     <h1>Ejercicio cuatro</h1>
     <p>
         Imagine una tabla infinita con filas y columnas numeradas con números naturales. La figura 
@@ -35,36 +31,41 @@
         <p><b>Parametros: </b>{{ $index1 }}, {{ $index2 }}</p>
         <p><b>Resultado: </b>{{ $result }}</p>
     </div>
+   
     <p>
-        Un par de números naturales (i, j) está representado por el número correspondiente a la 
-        celda en la fila i y columna j. Por ejemplo, el par (3, 2) está representado por el número 
-        natural 17.
-    </p>
-    <p>
-        Crear una función que toma como parámetros (tamaño fila, tamaño columna, posición fila, 
-        posición columna), debe retornar el número correspondiente de la posición de la fila y la 
-        columna. Si la posición fila o columna es mayor al tamaño del arreglo debe arrojar un error
+       
+        De acuerdo al ejemplo anterior se realiza una función la cual permite crear una tabla con 
+        una sumatoria de forma diagonal iniciando desde la parte de abajo tal como se muestra en la tabla anterior 
+        se reciben los siguentes datos por formulario: 
+        <ul></ul>
+        <li>Filas de la tabla</li>
+        <li>Columnas de la tabla</li>
+        <li>Indice de la fila</li>
+        <li>Indice de la columna</li>
+        <br>
+        una vez recibido los datos nos devuelve el valor que se encuentra entre los indices fila y columna iniciando el conteo desde 0
+       
     </p>
 
     <form action="/ejercicio4" method="post">
         @csrf
         <p>
-            <label for="filas">Filas:</label><br>
-            <input type="number" name="filas" id="filas"><br>
+            <label for="rows">Filas:</label><br>
+            <input type="number" name="rows" @if (session('dataStore')) value="{{ session('dataStore')['rows']}}" @endif id="rows"><br>
         </p>
         <p>
-            <label for="columnas">Columnas:</label><br>
-            <input type="number" name="columnas" id="columnas"><br>
-        </p>
-
-        <p>
-            <label for="indicefila">Indice filas:</label><br>
-            <input type="number" name="indicefila" id="indicefila"><br>
+            <label for="columns">Columnas:</label><br>
+            <input type="number" name="columns" @if (session('dataStore')) value="{{ session('dataStore')['columns']}}" @endif id="columns"><br>
         </p>
 
         <p>
-            <label for="indicecolumna">Indice Columnas:</label><br>
-            <input type="number" name="indicecolumna" id="indicecolumna"><br>
+            <label for="rowindex">Indice filas:</label><br>
+            <input type="number" name="rowindex" @if (session('dataStore')) value="{{ session('dataStore')['param1']}}" @endif id="rowindex"><br>
+        </p>
+
+        <p>
+            <label for="columnindex">Indice Columnas:</label><br>
+            <input type="number" name="columnindex" @if (session('dataStore')) value="{{ session('dataStore')['param2']}}" @endif id="columnindex"><br>
         </p>
         <p>
             <input type="submit" value="Obtener resultado">
@@ -91,13 +92,11 @@
                 
             @endForeach
         </table>
-        <p><b>Filas: </b>{{ session('dataStore')['filas'] }}</p>
-        <p><b>Columnas: {{ session('dataStore')['columnas'] }}</b></p>
+        <p><b>Filas: </b>{{ session('dataStore')['rows'] }}</p>
+        <p><b>Columnas: {{ session('dataStore')['columns'] }}</b></p>
         <p><b>Parametros: </b>{{ session('dataStore')['param1'] }}, {{ session('dataStore')['param2'] }}</p>
-        <p><b>Resultado: </b>{{ session('dataStore')['result'] }}</p>
+        <p><b>result: </b>{{ session('dataStore')['result'] }}</p>
     </div>
     @endif
 
-    
-</body>
-</html>
+@stop

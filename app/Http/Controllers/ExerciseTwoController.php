@@ -9,10 +9,7 @@ class ExerciseTwoController extends Controller
 {
     
     public function index(){
-        $data = null;
-        
-        //echo "-90 - 120 = ".$this->sumElementArray($arreglo2, -90, 120); echo "<br>";
-
+       
         return view('exercise_two');
     }
 

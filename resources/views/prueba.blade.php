@@ -8,6 +8,6 @@
 </head>
 <body>
     <h1>Prueba domina</h1>
-    <p>{{ $respuesta }}</p>
+    <p>{{ $reply }}</p>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExerciseFiveController;
 use App\Http\Controllers\ExerciseFourController;
 use App\Http\Controllers\ExerciseThreeController;
 use App\Http\Controllers\ExerciseTwoController;
@@ -19,7 +20,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('', [PruebaController::class, 'index']);
+//Route::get('', [PruebaController::class, 'index']);
+Route::get('', function(){
+    return redirect()->to('ejercicio1');
+});
 
 //ejercicio 1
 Route::get('ejercicio1', [ExerciseUnaController::class, 'index']);
@@ -36,3 +40,7 @@ Route::post('ejercicio3', [ExerciseThreeController::class, 'store']);
 //ejercicio 4
 Route::get('ejercicio4', [ExerciseFourController::class, 'index']);
 Route::post('ejercicio4', [ExerciseFourController::class, 'store']);
+
+//ejercicio 4
+Route::get('ejercicio5', [ExerciseFiveController::class, 'index']);
+Route::post('ejercicio5', [ExerciseFiveController::class, 'store']);

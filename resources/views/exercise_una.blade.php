@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ejercicio uno</title>
-</head>
-<body>
+@extends('layouts.template')
+@section('title', 'Ejercicio uno')
+
+@section('content')
+
     <h1>Ejercicio uno</h1>
     <p>
         Dada un arreglo de números enteros, calcule una puntuación total según las siguientes 
@@ -20,13 +16,13 @@
     <p>
         Ejemplo:
         <ol>
-            <li>[1,2,3,4,5], respuesta = 11 <b>Resultado</b> = {{ $respuesta1 }}</li>
-            <li>[15,25,35], respuesta = 9 <b>Resultado</b> = {{ $respuesta2 }}</li>
-            <li>[8,8], respuesta = 10 <b>Resultado</b> = {{ $respuesta3 }}</li>
+            <li>[1,2,3,4,5], respuesta = 11 <b>resultado</b> = {{ $reply1 }}</li>
+            <li>[15,25,35], respuesta = 9 <b>resultado</b> = {{ $reply2 }}</li>
+            <li>[8,8], respuesta = 10 <b>resultado</b> = {{ $reply3 }}</li>
         </ol>
     </p>
 
-    <p>Si decea obtener un resultado diferente por favor agregar números enteros separados por coma en el siguiente formulario.</p>
+    <p>Si desea obtener un resultado diferente por favor agregar números enteros separados por coma en el siguiente formulario.</p>
 
     <form action="/ejercicio1" method="post">
         @csrf
@@ -37,10 +33,9 @@
     @if (session('dataStore'))
     <div class="alert alert-success">
         <p>Array = {{ session('dataStore')['param'] }}</p>
-        <p>Respuesta = {{ session('dataStore')['result'] }}</p>
+        <p>Resultado = {{ session('dataStore')['result'] }}</p>
     </div>
     @endif
 
-    
-</body>
-</html>
+
+@stop

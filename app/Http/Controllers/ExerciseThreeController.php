@@ -8,16 +8,16 @@ use Illuminate\Support\Facades\Session;
 class ExerciseThreeController extends Controller
 {
     public function index(){
-        $data = null;
         
-        $data['resultado1'] = $this->calculateAngle("01:45");
-        $data['resultado2'] = $this->calculateAngle("10:30");
-        $data['resultado3'] = $this->calculateAngle("02:25");
-        $data['resultado4'] = $this->calculateAngle("00:00");
-        $data['resultado5'] = $this->calculateAngle("12:30");
-        $data['resultado6'] = $this->calculateAngle("12:05");
-        $data['resultado7'] = $this->calculateAngle("12:12");
-        $data['resultado8'] = $this->calculateAngle("12:27");
+        $data['result1'] = $this->calculateAngle("01:45");
+        $data['result2'] = $this->calculateAngle("10:30");
+        $data['result3'] = $this->calculateAngle("02:25");
+        $data['result4'] = $this->calculateAngle("00:00");
+        $data['result5'] = $this->calculateAngle("12:30");
+        $data['result6'] = $this->calculateAngle("12:05");
+        $data['result7'] = $this->calculateAngle("12:12");
+        $data['result8'] = $this->calculateAngle("12:27");
+        $this->calculateAngle("12:278");
 
 
         return view('exercise_three', $data);
@@ -27,7 +27,7 @@ class ExerciseThreeController extends Controller
     public function store(Request $request){
 
         $request->validate([
-            'time' => 'required'
+            'time' => 'required|regex:/(\d+\:\d+)/'
         ]);
 
         $dataStore['param'] = "Hora y minutos = ".$request->input('time');
@@ -50,7 +50,7 @@ class ExerciseThreeController extends Controller
 
         $hourAngle = $hour * 30;
         $minuteAngle = $minute * 6;
-        $rightAngle = abs($hourAngle - $minuteAngle);
+        $rightAngle = abs($hourAngle - $minuteAngle); //abs conviete en entero un número
         $leftAngle = abs($rightAngle - 360);
 
         //Valida el angulo menor.

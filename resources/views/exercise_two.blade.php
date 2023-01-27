@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ejercicio dos</title>
-</head>
-<body>
+@extends('layouts.template')
+@section('title', 'Ejercicio dos')
+
+@section('content')
     <h1>Ejercicio dos</h1>
     <p>
         En este ejercicio, estamos trabajando con un arreglo de 10 enteros, como sigue: [10, 20, 30, 
@@ -63,6 +58,4 @@
     </div>
     @endif
 
-    
-</body>
-</html>
+@stop

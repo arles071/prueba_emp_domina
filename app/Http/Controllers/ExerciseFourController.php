@@ -10,11 +10,11 @@ class ExerciseFourController extends Controller
     public function index(){
 
         $data['array'] = [];
-        $data['respuesta'] = '';
+        $data['result'] = '';
         $data['index1'] = 3;
         $data['index2'] = 4;
 
-        $return = $this->numero_correspondienteparam(8, 8, $data['index1'], $data['index2']);
+        $return = $this->infinite_table(8, 8, $data['index1'], $data['index2']);
 
         if(is_array($return)){
             $data['array'] = $return['array'];
@@ -27,18 +27,18 @@ class ExerciseFourController extends Controller
     public function store(Request $request){
 
         $request->validate([
-            'filas' => 'required',
-            'columnas' => 'required',
-            'indicefila' => 'required',
-            'indicecolumna' => 'required'
+            'rows' => 'required',
+            'columns' => 'required',
+            'rowindex' => 'required',
+            'columnindex' => 'required'
         ]);
 
-        $dataStore['filas'] = $request->input('filas');
-        $dataStore['columnas'] = $request->input('columnas');
-        $dataStore['param1'] = $request->input('indicefila');
-        $dataStore['param2'] = $request->input('indicecolumna');
+        $dataStore['rows'] = $request->input('rows');
+        $dataStore['columns'] = $request->input('columns');
+        $dataStore['param1'] = $request->input('rowindex');
+        $dataStore['param2'] = $request->input('columnindex');
 
-        $return = $this->numero_correspondienteparam($dataStore['filas'], $dataStore['columnas'], $dataStore['param1'], $dataStore['param2']);
+        $return = $this->infinite_table($dataStore['rows'], $dataStore['columns'], $dataStore['param1'], $dataStore['param2']);
 
         if(is_array($return)){
             $dataStore['array'] = $return['array'];
@@ -49,82 +49,70 @@ class ExerciseFourController extends Controller
         return redirect()->to('ejercicio4');
     }
 
-    private function numero_correspondienteparam($tamaño_fila, $tamaño_columna, $posicion_fila, $posicion_columna) {
+    /**
+     * Función para crear una tabla y obtener el indice
+     */
+    private function infinite_table($row_size, $column_size, $row_position, $column_position) {
       
         $cont = 1;
 
-        for($i = 0; $i < $tamaño_fila - 1; $i++){
-
-            $decrementar = $i + 1;
-            
-            if($i == 0){
+        //Recorre todas las filas para crear un array.
+        for($i = 0; $i < $row_size - 1; $i++){
+            $decrease = $i + 1;
+            if($i == 0)
                 $array2[0][0] = 0;
-            }
 
             for($j = 0; $j <= $i + 1; $j++){
-
-                if($j <= $tamaño_columna)
-                {
-                    $array2[$decrementar][$j] = $cont;
-                    $decrementar--;
+                if($j <= $column_size){
+                    $array2[$decrease][$j] = $cont;
+                    $decrease--;
                     $cont++;
                 }
             }
-
         }
 
-         //aun faltan columnas por recorrer por recorrer
-         if($tamaño_fila > $tamaño_columna){
-            $campos =  $tamaño_fila - $tamaño_columna;
+         //aun faltan filas por recorrer.
+         if($row_size > $column_size){
+            $campos =  $row_size - $column_size;
             
             for($i = 0; $i < $campos; $i++){ //1
-                $decrementar = $tamaño_fila;
-
-                for($j = 0; $j <=  $tamaño_fila; $j++){
-                    if($j <= $tamaño_columna)
-                    {
-                    $array2[$decrementar][$j] = $cont; 
-                    $decrementar--;
+                $decrease = $row_size;
+                for($j = 0; $j <=  $row_size; $j++){
+                    if($j <= $column_size){
+                    $array2[$decrease][$j] = $cont; 
+                    $decrease--;
                     $cont++;
                     }
-                    }
+                }
             }
         }
 
-        //aun faltan columnas por recorrer por recorrer
-        if($tamaño_fila < $tamaño_columna){
-            $campos =  $tamaño_columna - $tamaño_fila;
+        //aun faltan columnas por recorrer
+        if($row_size < $column_size){
+            $campos =  $column_size - $row_size;
             
             for($i = 0; $i < $campos; $i++){ //2
-                $aumentar = $i+1; //2
-
-                for($j = $tamaño_fila; $j > 0; $j--){
-                    $array2[$j-1][$aumentar] = $cont; 
-                    $aumentar++;
+                $increase = $i+1; //2
+                for($j = $row_size; $j > 0; $j--){
+                    $array2[$j-1][$increase] = $cont; 
+                    $increase++;
                     $cont++;
                 }
             }
         }
-        
 
-
-
-        //echo "<pre>";
-        //print_r($array2);
-        if(!@$array2[$posicion_fila][$posicion_columna]){
+        //Valida si el indice existe si no existe devuelve un error.
+        if(!@$array2[$row_position][$column_position]){
             $return = [
                 'result' => "La posición de la fila o columna es mayor al tamaño del arreglo",
                 'array' => $array2
             ];
         } else {
-
             $return = [
-                'result' => $array2[$posicion_fila][$posicion_columna],
+                'result' => $array2[$row_position][$column_position],
                 'array' => $array2
             ];
         }
-
-      
         return $return;
     }
 
